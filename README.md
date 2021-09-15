@@ -1,2 +1,4 @@
 # Glow-Maze-Old
-Previous build of Glow Maze
+Previous build backup of Glow Maze
+
+⚠️⚠️⚠️ DON'T try to Copy! Contains Malware ⚠️⚠️⚠️
