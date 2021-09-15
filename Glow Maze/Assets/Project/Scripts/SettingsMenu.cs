@@ -52,7 +52,7 @@ public class SettingsMenu : MonoBehaviour
         isVibrationOn = vibrationToggle.isOn;
         isSoundOn = soundToggle.isOn;
 
-        diamondsCount = PlayerPrefs.GetInt("Diamonds");
+        diamondsCount = PlayerPrefs.GetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
         versionText.text = "V. " + Application.version.ToString();
     }
 

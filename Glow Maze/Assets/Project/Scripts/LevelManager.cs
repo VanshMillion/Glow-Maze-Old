@@ -149,4 +149,9 @@ public class LevelManager : MonoBehaviour
 
         panelMat.color = camColor;
     }
+
+    void OnValidate()
+    {
+        LevelColorManager();
+    }
 }

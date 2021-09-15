@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(savedLevel); //Load game from savedLevel
     }
 
+    void Update()
+    {
+        DeviceBackFunction();
+    }
+
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -75,12 +80,54 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-       if(LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
-       {
-            DeductDiamonds();
-       }
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
+            {
+                DeductDiamonds();
+            }
 
-       PlayerPrefs.SetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
-       Debug.Log("SAVED DIAMONDS " + PlayerPrefs.GetInt("Diamonds"));
+            PlayerPrefs.SetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
+            Debug.Log("SAVED DIAMONDS IN ANDROID " + PlayerPrefs.GetInt("Diamonds"));
+        }
+
+#if UNITY_EDITOR
+        if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
+        {
+            DeductDiamonds();
+        }
+
+        PlayerPrefs.SetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
+        Debug.Log("SAVED DIAMONDS IN EDITOR " + PlayerPrefs.GetInt("Diamonds"));
+#endif
+    }
+
+    void DeviceBackFunction()
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Application.Quit();
+                //Time.timeScale = 0; //Pause game in Background
+            }
+        }
+
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            //Time.timeScale = 0; //Pause game in Background
+        }
+#endif
+    }
+
+    void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            PlayerPrefs.SetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
+            PlayerPrefs.Save();
+        }
     }
 }
