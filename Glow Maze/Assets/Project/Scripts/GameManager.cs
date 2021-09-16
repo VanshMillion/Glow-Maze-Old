@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     private int savedLevel;
 
+    public GameObject gameOverPanel;
+
     public bool isLevelCompleted;
 
     void Awake()
@@ -47,14 +49,27 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Invoke("DeductDiamonds", 0.3f);
-        Invoke("RestartLevel", 0.4f);
+        Invoke("OpenGameOverPanel", 0.4f);
         
         Debug.Log("GAME OVER!");
     }
 
     public void DeductDiamonds()
     {
-        SettingsMenu.Instance.diamondsCount -= LevelManager.Instance.diamondstoRemove;
+        if(SettingsMenu.Instance.diamondsCount > 0)
+        {
+            SettingsMenu.Instance.diamondsCount -= LevelManager.Instance.diamondstoRemove;
+        }
+    }
+
+    void OpenGameOverPanel()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void CloseGameOverPanel()
+    {
+        gameOverPanel.SetActive(false);
     }
 
     public void VibrateOnMove()
@@ -75,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void VibrateOnButtonPress()
     {
-        Vibrations.Vibrate(800);
+        Vibrations.Vibrate(200);
     }
 
     void OnApplicationQuit()
@@ -126,6 +141,11 @@ public class GameManager : MonoBehaviour
     {
         if (pause)
         {
+            if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
+            {
+                DeductDiamonds();
+            }
+
             PlayerPrefs.SetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
             PlayerPrefs.Save();
         }

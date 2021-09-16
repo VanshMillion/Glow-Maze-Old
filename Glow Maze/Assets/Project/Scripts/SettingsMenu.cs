@@ -23,7 +23,7 @@ public class SettingsMenu : MonoBehaviour
     public bool isVibrationOn;
     public bool isSoundOn;
 
-    public TMP_Text diamondCountText;
+    public TMP_Text[] allDiamondCountText;
 
     public GameObject pausePanel;
     public TMP_Text versionText;
@@ -52,13 +52,16 @@ public class SettingsMenu : MonoBehaviour
         isVibrationOn = vibrationToggle.isOn;
         isSoundOn = soundToggle.isOn;
 
-        diamondsCount = PlayerPrefs.GetInt("Diamonds", SettingsMenu.Instance.diamondsCount);
-        versionText.text = "V. " + Application.version.ToString();
+        diamondsCount = PlayerPrefs.GetInt("Diamonds");
+        versionText.text = "V . " + Application.version.ToString();
     }
 
     private void Update()
     {
-        diamondCountText.text = diamondsCount.ToString();
+        for(int i = 0; i < allDiamondCountText.Length; i++)
+        {
+            allDiamondCountText[i].text = diamondsCount.ToString();
+        }
     }
 
     public void OpenPausePanel()
@@ -80,6 +83,26 @@ public class SettingsMenu : MonoBehaviour
         ClosePausePanel();
         GameManager.Instance.DeductDiamonds();
         GameManager.Instance.RestartLevel();
+    }
+
+    public void RestartAfterGameOver()
+    {
+        GameManager.Instance.CloseGameOverPanel();
+        GameManager.Instance.RestartLevel();
+    }
+
+    public void ResumeAfterGameOver()
+    {
+        if(diamondsCount >= 3)
+        {
+            diamondsCount -= 3;
+            GameManager.Instance.CloseGameOverPanel();
+            GameManager.Instance.RestartLevel();
+        }
+        else
+        {
+            Debug.Log("NOT ENOUGH DIAMONDS!");
+        }
     }
 
     public void ToggleVibration()
