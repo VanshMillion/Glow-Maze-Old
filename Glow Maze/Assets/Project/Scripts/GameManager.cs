@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
+            if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount && gameOverPanel.activeInHierarchy == false)
             {
                 DeductDiamonds();
             }
@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount)
+        if (LevelManager.Instance.diamondstoRemove <= LevelManager.Instance.diamondPickUpCount && gameOverPanel.activeInHierarchy == false)
         {
             DeductDiamonds();
         }
@@ -121,18 +121,24 @@ public class GameManager : MonoBehaviour
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.GetKey(KeyCode.Escape))
+            if (Input.GetKey(KeyCode.Escape) && SettingsMenu.Instance.pausePanel.activeInHierarchy == false)
             {
                 Application.Quit();
-                //Time.timeScale = 0; //Pause game in Background
+            }
+            else if (Input.GetKey(KeyCode.Escape) && SettingsMenu.Instance.pausePanel.activeInHierarchy == true)
+            {
+                SettingsMenu.Instance.ClosePausePanel();
             }
         }
 
 #if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && SettingsMenu.Instance.pausePanel.activeInHierarchy == false)
         {
             UnityEditor.EditorApplication.isPlaying = false;
-            //Time.timeScale = 0; //Pause game in Background
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape) && SettingsMenu.Instance.pausePanel.activeInHierarchy == true)
+        {
+            SettingsMenu.Instance.ClosePausePanel();
         }
 #endif
     }

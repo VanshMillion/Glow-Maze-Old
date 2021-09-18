@@ -32,6 +32,7 @@ public class SettingsMenu : MonoBehaviour
     public AudioClip clickSound;
 
     public Animator fadeAnim;
+    public Animator notEnoughAnim;
 
     void Awake()
     {
@@ -101,7 +102,7 @@ public class SettingsMenu : MonoBehaviour
         }
         else
         {
-            Debug.Log("NOT ENOUGH DIAMONDS!");
+            notEnoughAnim.SetTrigger("NotEnough");
         }
     }
 
