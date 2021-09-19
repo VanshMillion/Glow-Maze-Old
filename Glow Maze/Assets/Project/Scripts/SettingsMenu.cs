@@ -98,11 +98,13 @@ public class SettingsMenu : MonoBehaviour
         {
             diamondsCount -= 3;
             GameManager.Instance.CloseGameOverPanel();
-            GameManager.Instance.RestartLevel();
+            BallMovement.Instance.movesLeft += 5;
+            BallMovement.Instance.canMove = true;
         }
         else
         {
             notEnoughAnim.SetTrigger("NotEnough");
+            AdmobManager.Instance.Invoke("ShowRewardedAd", 0.8f);
         }
     }
 

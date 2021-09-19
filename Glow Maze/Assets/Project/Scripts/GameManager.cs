@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public AudioMixer mainMixer;
 
     private int savedLevel;
+    public int gameOverCount;
 
     public GameObject gameOverPanel;
 
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
         savedLevel = PlayerPrefs.GetInt("SavedLevel"); //Save current Level for later use
         Debug.Log("STARTED SAVED LEVEL! " + savedLevel);
         SceneManager.LoadScene(savedLevel); //Load game from savedLevel
+
+        gameOverCount = 0;
     }
 
     void Update()
@@ -46,11 +49,21 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void StartAgain()
+    {
+        if(SceneManager.GetActiveScene().buildIndex + 1 == null)
+        {
+
+        }
+    }
+
     public void GameOver()
     {
+        gameOverCount++;
+
         Invoke("DeductDiamonds", 0.3f);
         Invoke("OpenGameOverPanel", 0.4f);
-        
+
         Debug.Log("GAME OVER!");
     }
 
@@ -59,6 +72,14 @@ public class GameManager : MonoBehaviour
         if(SettingsMenu.Instance.diamondsCount > 0)
         {
             SettingsMenu.Instance.diamondsCount -= LevelManager.Instance.diamondstoRemove;
+        }
+    }
+
+    public void AddDiamonds()
+    {
+        if (SettingsMenu.Instance.diamondsCount >= 0)
+        {
+            SettingsMenu.Instance.diamondsCount += LevelManager.Instance.diamondstoRemove;
         }
     }
 

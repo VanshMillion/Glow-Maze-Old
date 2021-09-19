@@ -209,8 +209,8 @@ MonoBehaviour:
 
     COMPLETED'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 879f52c1dab2e4748a7e52a5964bfa2a, type: 2}
-  m_sharedMaterial: {fileID: -7000090540542373174, guid: 879f52c1dab2e4748a7e52a5964bfa2a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a5c5c92fdd8637249936342b6cda7eba, type: 2}
+  m_sharedMaterial: {fileID: 6400490008832095459, guid: a5c5c92fdd8637249936342b6cda7eba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -884,7 +884,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.09666667, g: 0.2, b: 0, a: 1}
+  m_BackGroundColor: {r: 0.27, g: 0, b: 0.19588245, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1315,7 +1315,7 @@ MonoBehaviour:
   ballAudio: {fileID: 1221946079}
   diamondSound: {fileID: 8300000, guid: cc550c3e0e2826244ab077b638801d17, type: 3}
   movePickUpSound: {fileID: 8300000, guid: be6587b93bb178249b2a27e0cf4fddab, type: 3}
-  moves: 17
+  moves: 19
   movesLeft: 0
   movesByPickup: 0
 --- !u!54 &1221946077
@@ -2032,6 +2032,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMixer: {fileID: 24100000, guid: 5745a383398872940a76a1c0100b039e, type: 2}
+  gameOverCount: 0
+  gameOverPanel: {fileID: 0}
   isLevelCompleted: 0
 --- !u!114 &2044180313
 MonoBehaviour:

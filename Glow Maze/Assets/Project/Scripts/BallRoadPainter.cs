@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class BallRoadPainter : MonoBehaviour
 {
@@ -53,6 +54,10 @@ public class BallRoadPainter : MonoBehaviour
 
                     LevelManager.Instance.Invoke("PlayWinFX", 0.3f);
                     GameManager.Instance.VibrateOnWinorLose();
+                    if((SceneManager.GetActiveScene().buildIndex + 1) % 3 == 0)
+                    {
+                        AdmobManager.Instance.Invoke("ShowInterstitial", 1.3f);
+                    }
 
                     Invoke("NextLevel", 1.2f);
                 }

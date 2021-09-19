@@ -50,7 +50,8 @@ public class BallMovement : MonoBehaviour
 
         movesLeft = moves;
 
-        swipeListener.OnSwipe.AddListener(swipe => {
+        swipeListener.OnSwipe.AddListener(swipe =>
+        {
             switch (swipe)
             {
                 case "Right":
@@ -128,9 +129,15 @@ public class BallMovement : MonoBehaviour
                 movesByPickup--;
             }
 
-            if(movesLeft == 0 && GameManager.Instance.isLevelCompleted == false && movesByPickup == 0 )
+            if (movesLeft == 0 && GameManager.Instance.isLevelCompleted == false && movesByPickup == 0 )
             {
                 Invoke("CheckedGameOver", 0.1f);
+
+                if (GameManager.Instance.gameOverCount % 3 == 0)
+                {
+                    AdmobManager.Instance.Invoke("ShowInterstitial", 0.3f);
+                    GameManager.Instance.Invoke("AddDiamonds", 0.5f);
+                }
             }
         }
     }
@@ -147,7 +154,6 @@ public class BallMovement : MonoBehaviour
             canMove = false;
 
             GameManager.Instance.GameOver();
-            Debug.Log("RUNNING CODE!");
         }
     }
 }
